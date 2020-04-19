@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 
 	shell "github.com/ipfs/go-ipfs-api"
 )
@@ -17,4 +19,13 @@ func main() {
 
 	fmt.Println("###########################\n   Welcome to IPLD-CRUD!\n###########################\n")
 	fmt.Println("This client generates a dynamic key-value entry and stores it in IPFS!\n")
+
+	// keyValueMap := make(map[string]interface{})
+
+	fmt.Println("Enter value for the key field: ")
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	inputKey := scanner.Text()
+	fmt.Printf("value taken in is %s", inputKey)
+
 }
