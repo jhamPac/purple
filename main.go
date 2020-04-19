@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 
@@ -20,12 +21,25 @@ func main() {
 	fmt.Println("###########################\n   Welcome to IPLD-CRUD!\n###########################\n")
 	fmt.Println("This client generates a dynamic key-value entry and stores it in IPFS!\n")
 
-	// keyValueMap := make(map[string]interface{})
+	keyValueMap := make(map[string]interface{})
 
 	fmt.Println("Enter value for the key field: ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	inputKey := scanner.Text()
-	fmt.Printf("value taken in is %s", inputKey)
 
+	fmt.Println("Enter value for the value field: ")
+	scanner.Scan()
+	inputValue := scanner.Text()
+
+	keyValueMap[inputKey] = inputValue
+
+	entryJSON, err := json.Marshal(keyValueMap)
+	if err != nil {
+		fmt.Printf("There was an error marshalling your data %v", err)
+	}
+
+	jsonStr := string(entryJSON)
+	fmt.Println("The JSON object of your key-value entry is:")
+	fmt.Println(jsonStr)
 }
